@@ -1,7 +1,6 @@
 package com.example.ippypro;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendIPAddress(ArrayList<String> ipPackage) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, GetInfoActivity.class);
-        bundle.putStringArrayList("ipAddresses", ipPackage);
+        bundle.putStringArrayList("addresses", ipPackage);
         intent.putExtras(bundle);
         startActivity(intent);
     }
