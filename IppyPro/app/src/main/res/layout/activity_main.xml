@@ -10,35 +10,57 @@
         android:id="@+id/setipbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="210dp"
         android:text="Submit"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="191dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getIP" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/getIP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Intrnet Protocol Address"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="111dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/aboutbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="About"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="280dp" />
+        app:layout_constraintEnd_toStartOf="@+id/storagebtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/storagebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Storage"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="280dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/aboutbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/aboutbtn"
+        app:layout_constraintTop_toTopOf="@+id/aboutbtn" />
+
+    <TextView
+        android:id="@+id/errmessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
+        android:text="This is my error message"
+        app:layout_constraintBottom_toTopOf="@+id/getIP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
