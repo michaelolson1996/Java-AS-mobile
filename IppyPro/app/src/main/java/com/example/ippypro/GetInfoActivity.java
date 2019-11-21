@@ -8,8 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.net.URL;
@@ -22,24 +25,28 @@ public class GetInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_info);
-        Bundle adresses = getIntent().getExtras();
-
-        utilizeAddresses(adresses);
+        Bundle addresses = getIntent().getExtras();
+        utilizeAddresses(addresses);
     }
 
-    private class MyAsyncTask extends AsyncTask<String, Void, String> {
+    public void utilizeAddresses(Bundle addresses) {
+        ArrayList<String> ipArr = addresses.getStringArrayList("addresses");
+        SendfeedbackJob job = new SendfeedbackJob();
+        job.execute(ipArr.get(0));
+    }
+
+    private class SendfeedbackJob extends AsyncTask<String, Void, String> {
+
         @Override
-        protected String doInBackground(String... strings) {
-            HttpURLConnection httpClient = null;
+        protected String doInBackground(String[] params) {
+            HttpURLConnection httpClient;
             try {
                 Secret secret = new Secret();
-                String configuredURL = "https://api.smartip.io/" + strings[0] + "?api_key=" + secret.getKey();
+                String configuredURL = "https://api.smartip.io/" + params[0] + "?api_key=" + secret.getKey();
                 URL url = new URL(configuredURL);
                 httpClient = (HttpURLConnection) url.openConnection();
                 httpClient.setRequestMethod("GET");
-                httpClient.setConnectTimeout(4000);
-                httpClient.setReadTimeout(4000);
-                httpClient.connect();
+                System.out.println("Response Code: " + httpClient.getResponseCode());
                 int status = httpClient.getResponseCode();
 
                 if (status != 200) {
@@ -56,40 +63,14 @@ public class GetInfoActivity extends AppCompatActivity {
                     return builder.toString();
                 }
             } catch(Exception e) {
-                httpClient.disconnect();
                 return e.toString();
             }
         }
 
-        protected void onPostExecute(String result) {
-            String query = result;
-
-            try {
-                JSONArray jsonArray = new JSONArray(query);
-
-                for(int i = 0; i < jsonArray.length(); i++) {
-                    String name = jsonArray.getJSONObject(i).getString("n");
-
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+        @Override
+        protected void onPostExecute(String message) {
+            TextView tv = findViewById(R.id.display);
+            tv.setText(message);
         }
-
-        protected void onPreExecute() {
-            //nothing
-        }
-    }
-
-    public void utilizeAddresses(Bundle addresses) {
-        ArrayList<String> ipArr = addresses.getStringArrayList("addresses");
-        String ipInfo = getIPAddressInfo(ipArr.get(0));
-        TextView tv = findViewById(R.id.display);
-        tv.setText(ipInfo);
-    }
-
-    public String getIPAddressInfo(String address) {
-        return null;
     }
 }

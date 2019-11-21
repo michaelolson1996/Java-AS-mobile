@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         String binaryComponent = "";
 
         for (int i = 0; i < 8; i++) {
-            if (componentInt - initValue > 0) {
+            if (componentInt - initValue >= 0) {
                 componentInt = componentInt - initValue;
                 binaryComponent += 1;
                 initValue = initValue / 2;
