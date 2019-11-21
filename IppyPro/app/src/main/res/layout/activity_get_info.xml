@@ -7,7 +7,7 @@
     tools:context=".GetInfoActivity">
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/display"
         android:layout_width="383dp"
         android:layout_height="478dp"
         android:ems="10"
