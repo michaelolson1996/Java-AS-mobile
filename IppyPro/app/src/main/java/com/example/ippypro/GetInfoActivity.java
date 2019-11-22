@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -46,11 +47,10 @@ public class GetInfoActivity extends AppCompatActivity {
                 URL url = new URL(configuredURL);
                 httpClient = (HttpURLConnection) url.openConnection();
                 httpClient.setRequestMethod("GET");
-                System.out.println("Response Code: " + httpClient.getResponseCode());
                 int status = httpClient.getResponseCode();
 
                 if (status != 200) {
-                    return "no bueno";
+                    return "Unable to retrieve IP Address";
                 } else {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(httpClient.getInputStream()));
                     StringBuilder builder = new StringBuilder();
@@ -70,6 +70,50 @@ public class GetInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String message) {
             TextView tv = findViewById(R.id.display);
+            try {
+                JSONObject jsonAddress = new JSONObject(message);
+//                DISPLAY INFORMATION
+                String requesterIP = jsonAddress.getString("requester-ip");
+                String hostIP = jsonAddress.getString("ip");
+                String execTime = jsonAddress.getString("execution-time");
+//                GEOGRAPHY
+                JSONObject geo = jsonAddress.getJSONObject("geo");
+                String countryName = geo.getString("country-name");
+                String capital = geo.getString("capital");
+                String iso = geo.getString("country-iso-code");
+                String city = geo.getString("city");
+                int zip = geo.getInt("zip-code");
+                double longitude = geo.getDouble("longitude");
+                double latitude = geo.getDouble("latitude");
+//                  CURRENCY
+                JSONObject currency = jsonAddress.getJSONObject("currency");
+                String currencyNativeName = currency.getString("native-name");
+                String currencyCode = currency.getString("code");
+                String currencyName = currency.getString("name");
+                String currencySymbol = currency.getString("symbol");
+//                  ASN
+                JSONObject asn = jsonAddress.getJSONObject("asn");
+                String asnName = asn.getString("name");
+                String asnDomain = asn.getString("domain");
+                String asnOrganization = asn.getString("organization");
+                String asnCode = asn.getString("asn");
+                String asnType = asn.getString("type");
+//                  TIMEZONE
+                JSONObject timezone = jsonAddress.getJSONObject("timezone");
+                String timezoneName = timezone.getString("microsoft-name");
+                String dateTime = timezone.getString("date-time");
+                String ianaName = timezone.getString("iana-name");
+//                  SECURITY
+                JSONObject security = jsonAddress.getJSONObject("security");
+                boolean isCrawler = security.getBoolean("is-crawler");
+                boolean isProxy = security.getBoolean("is-proxy");
+                boolean isTor = security.getBoolean("is-tor");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             tv.setText(message);
         }
     }
