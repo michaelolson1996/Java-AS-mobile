@@ -14,4 +14,10 @@ public class ASN {
         this.asnCode = asnCode;
         this.asnType = asnType;
     }
+
+    public String getString() {
+        String asnStr = "\nASN Name: " + asnName + "\nDomain Name: " + asnDomain + "\nOrganization: "
+                + asnOrganization + "\nASN Code: " + asnCode + "\nType: " + asnType;
+        return asnStr;
+    }
 }

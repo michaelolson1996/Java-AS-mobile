@@ -46,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> ipArr = ipStrToArr(ipAddress);
                 ArrayList<String> ipGroupNums = ipGroupNums(ipArr);
                 if (checkIPComponents(ipGroupNums)) {
-                    String convertedIP = convertIPAddress(ipGroupNums);
-                    packageAddresses(ipAddress, convertedIP);
+                    String convertedBinaryIP = convertIPAddress(ipGroupNums);
+                    String convertedHexIP = convertBinaryToHex(convertedBinaryIP);
+                    packageAddresses(ipAddress, convertedBinaryIP, convertedHexIP);
                     clearIPAddress();
                 } else {
                     errMessage();
@@ -136,10 +137,56 @@ public class MainActivity extends AppCompatActivity {
         }
         return binaryComponent;
     }
-    public void packageAddresses(String ipAddress, String binaryValue) {
+    public String convertBinaryToHex(String binaryStr) {
+        int counter = 0;
+        StringBuilder hexStr = new StringBuilder();
+        int hexDigit;
+        for (int i = 0; i < 8; i++) {
+            hexDigit = 0;
+            for (int j = 0; j < 4; j++) {
+                 if (binaryStr.substring(counter, counter + 1).equals("1")) {
+                     if (counter % 4 == 0) {
+                         hexDigit += 8;
+                     } else if (counter % 1 == 0) {
+                         hexDigit += 4;
+                     } else if (counter % 2 == 0) {
+                         hexDigit += 2;
+                     } else {
+                         hexDigit += 1;
+                     }
+                 } else {
+                     continue;
+                 }
+                 counter = counter + 1;
+            }
+
+            switch(hexDigit) {
+                case 10:
+                    hexStr.append("A");
+                case 11:
+                    hexStr.append("B");
+                case 12:
+                    hexStr.append("C");
+                case 13:
+                    hexStr.append("D");
+                case 14:
+                    hexStr.append("E");
+                case 15:
+                    hexStr.append("F");
+                default:
+                    hexStr.append(String.valueOf(hexDigit));
+            }
+        }
+//        System.out.println(binaryStr);
+        System.out.println(hexStr.toString());
+        return hexStr.toString();
+    }
+    public void packageAddresses(String ipAddress, String binaryValue, String hexValue) {
+        System.out.println(hexValue);
         ArrayList<String> ipPackage = new ArrayList<>();
         ipPackage.add(ipAddress);
         ipPackage.add(binaryValue);
+        ipPackage.add(hexValue);
         sendIPAddress(ipPackage);
     }
     public void sendIPAddress(ArrayList<String> ipPackage) {

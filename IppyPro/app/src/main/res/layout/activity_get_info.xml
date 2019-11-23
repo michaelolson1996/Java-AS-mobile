@@ -29,12 +29,13 @@
         app:layout_constraintTop_toTopOf="@+id/backbtn" />
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/display"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="177dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:layout_width="408dp"
@@ -48,6 +49,7 @@
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusedByDefault="true"
             android:text="General" />
 
         <RadioButton
@@ -71,13 +73,16 @@
 
     <EditText
         android:id="@+id/display"
-        android:layout_width="390dp"
-        android:layout_height="423dp"
+        android:layout_width="385dp"
+        android:layout_height="420dp"
+        android:clickable="false"
+        android:contextClickable="false"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:selectAllOnFocus="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="38dp" />
+        tools:layout_editor_absoluteY="45dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

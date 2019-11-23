@@ -18,30 +18,32 @@ public class IPContainer {
     }
 
     public String displayAll() {
-        return null;
+        String displayStr = IPInfo.getString();
+        String currencyStr = Currency.getString();
+        String locationStr = Location.getString();
+        String timezoneStr = Timezone.getString();
+        String asnStr = ASN.getString();
+        String securityStr = Security.getString();
+        return displayStr + currencyStr + locationStr + timezoneStr + asnStr + securityStr;
     }
 
     public String displayGeneral() {
-        return null;
-    }
-
-    public String displayCurrency() {
-        return null;
+        String displayStr = IPInfo.getString();
+        String currencyStr = Currency.getString();
+        String timezoneStr = Timezone.getString();
+        return displayStr + currencyStr + timezoneStr;
     }
 
     public String displayLocation() {
-        return null;
-    }
-
-    public String displaySecurity() {
-        return null;
+        String displayStr = IPInfo.getString();
+        String locationStr = Location.getString();
+        return displayStr + locationStr;
     }
 
     public String displayASN() {
-        return null;
-    }
-
-    public String displayTimezone() {
-        return null;
+        String displayStr = IPInfo.getString();
+        String asnStr = ASN.getString();
+        String securityStr = Security.getString();
+        return displayStr + asnStr + securityStr;
     }
 }

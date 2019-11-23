@@ -19,4 +19,10 @@ public class IPInfo {
         this.requesterIP = requesterIP;
         this.execTime = execTime;
     }
+
+    public String getString() {
+        String ipInfo = "Current IP: " + ip + "\n(" + ipBinary + ")2\n(" + ipHex
+                + ")16\n(" + ipOct + ")8\n";
+        return ipInfo;
+    }
 }

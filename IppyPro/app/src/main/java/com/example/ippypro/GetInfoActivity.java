@@ -31,9 +31,9 @@ public class GetInfoActivity extends AppCompatActivity {
         ArrayList<String> ipArr = addresses.getStringArrayList("addresses");
         String ip = ipArr.get(0);
         String binary = ipArr.get(1);
-//        String hex = ipArr.get(2);
+        String hex = ipArr.get(2);
 //        String octal = ipArr.get(3);
-        ipInfo = new IPInfo(ip, binary, "I am hex", "I am octal");
+        ipInfo = new IPInfo(ip, binary, hex, "I am octal");
         SendfeedbackJob job = new SendfeedbackJob();
         job.execute(ip);
     }
@@ -90,7 +90,7 @@ public class GetInfoActivity extends AppCompatActivity {
                 String capital = geo.getString("capital");
                 String iso = geo.getString("country-iso-code");
                 String city = geo.getString("city");
-                int zip = geo.getInt("zip-code");
+                Integer zip = geo.getInt("zip-code");
                 double longitude = geo.getDouble("longitude");
                 double latitude = geo.getDouble("latitude");
                 location = new Location(countryName, capital, iso, city, zip, longitude, latitude);
@@ -127,10 +127,13 @@ public class GetInfoActivity extends AppCompatActivity {
                 Security = new Security(isCrawler, isProxy, isTor);
 
                 container = new IPContainer(ipInfo, Currency, location, Security, ASN, Timezone);
+                tv.setText(container.displayGeneral());
             } catch (JSONException e) {
-                tv.setText(message);
+                tv.setText(e.toString());
                 e.printStackTrace();
             }
         }
     }
+
+
 }
