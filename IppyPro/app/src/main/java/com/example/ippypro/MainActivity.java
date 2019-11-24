@@ -140,39 +140,47 @@ public class MainActivity extends AppCompatActivity {
     public String convertBinaryToHex(String binaryStr) {
         int counter = 0;
         StringBuilder hexStr = new StringBuilder();
+        int j;
         int hexDigit;
         for (int i = 0; i < 8; i++) {
             hexDigit = 0;
-            for (int j = 0; j < 4; j++) {
-                 if (binaryStr.substring(counter, counter + 1).equals("1")) {
-                     if (counter % 4 == 0) {
-                         hexDigit += 8;
-                     } else if (counter % 1 == 0) {
-                         hexDigit += 4;
-                     } else if (counter % 2 == 0) {
-                         hexDigit += 2;
+            for (j = 0; j < 4; j++) {
+                 if (binaryStr.substring(counter, (counter + 1)).equals("1")) {
+                     if (j == 0) {
+                         hexDigit = hexDigit + 8;
+                     } else if (j == 1) {
+                         hexDigit = hexDigit + 4;
+                     } else if (j == 2) {
+                         hexDigit = hexDigit + 2;
                      } else {
-                         hexDigit += 1;
+                         hexDigit = hexDigit + 1;
                      }
+                     counter = counter + 1;
                  } else {
+                     counter = counter + 1;
                      continue;
                  }
-                 counter = counter + 1;
             }
 
             switch(hexDigit) {
                 case 10:
                     hexStr.append("A");
+                    break;
                 case 11:
                     hexStr.append("B");
+                    break;
                 case 12:
                     hexStr.append("C");
+                    break;
                 case 13:
                     hexStr.append("D");
+                    break;
                 case 14:
                     hexStr.append("E");
+                    break;
                 case 15:
                     hexStr.append("F");
+                    break;
                 default:
                     hexStr.append(String.valueOf(hexDigit));
             }
