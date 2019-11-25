@@ -17,7 +17,7 @@ public class ASN {
 
     public String getString() {
         String asnStr = "\nASN Name: " + asnName + "\nDomain Name: " + asnDomain + "\nOrganization: "
-                + asnOrganization + "\nASN Code: " + asnCode + "\nType: " + asnType;
+                + asnOrganization + "\nASN Code: " + asnCode + "\nType: " + asnType + "\n";
         return asnStr;
     }
 }

@@ -3,6 +3,7 @@ package com.example.ippypro;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ public class GetInfoActivity extends AppCompatActivity {
     Currency Currency;
     Timezone Timezone;
     Security Security;
+//    TextView display = findViewById(R.id.display);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +34,12 @@ public class GetInfoActivity extends AppCompatActivity {
         String ip = ipArr.get(0);
         String binary = ipArr.get(1);
         String hex = ipArr.get(2);
-//        String octal = ipArr.get(3);
-        ipInfo = new IPInfo(ip, binary, hex, "I am octal");
+        String octal = ipArr.get(3);
+        ipInfo = new IPInfo(ip, binary, hex, octal);
         SendfeedbackJob job = new SendfeedbackJob();
         job.execute(ip);
     }
+
     private class SendfeedbackJob extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String[] params) {
@@ -74,8 +77,8 @@ public class GetInfoActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String message) {
-            TextView tv = findViewById(R.id.display);
-
+            TextView display = findViewById(R.id.display);
+            System.out.println(message);
             try {
                 JSONObject jsonAddress = new JSONObject(message);
 
@@ -86,31 +89,22 @@ public class GetInfoActivity extends AppCompatActivity {
 
 //                GEOGRAPHY
                 JSONObject geo = jsonAddress.getJSONObject("geo");
+
                 String countryName = geo.getString("country-name");
-                String capital = geo.getString("capital");
+                String capital = geo.optString("capital", "N/A");
                 String iso = geo.getString("country-iso-code");
                 String city = geo.getString("city");
-                Integer zip = geo.getInt("zip-code");
                 double longitude = geo.getDouble("longitude");
                 double latitude = geo.getDouble("latitude");
-                location = new Location(countryName, capital, iso, city, zip, longitude, latitude);
+                location = new Location(countryName, capital, iso, city, longitude, latitude);
 
-//                  CURRENCY
+//                 CURRENCY
                 JSONObject currency = jsonAddress.getJSONObject("currency");
                 String currencyNativeName = currency.getString("native-name");
                 String currencyCode = currency.getString("code");
                 String currencyName = currency.getString("name");
                 String currencySymbol = currency.getString("symbol");
                 Currency = new Currency(currencyNativeName, currencyCode, currencyName, currencySymbol);
-
-//                  ASN
-                JSONObject asn = jsonAddress.getJSONObject("asn");
-                String asnName = asn.getString("name");
-                String asnDomain = asn.getString("domain");
-                String asnOrganization = asn.getString("organization");
-                String asnCode = asn.getString("asn");
-                String asnType = asn.getString("type");
-                ASN = new ASN(asnName, asnDomain, asnOrganization, asnCode, asnType);
 
 //                  TIMEZONE
                 JSONObject timezone = jsonAddress.getJSONObject("timezone");
@@ -126,14 +120,48 @@ public class GetInfoActivity extends AppCompatActivity {
                 boolean isTor = security.getBoolean("is-tor");
                 Security = new Security(isCrawler, isProxy, isTor);
 
+//                    ASN
+                if (jsonAddress.isNull("asn")) {
+                    ASN = new ASN("N/A", "N/A", "N/A", "N/A", "N/A");
+                } else {
+                    JSONObject asn = jsonAddress.getJSONObject("asn");
+                    String asnName = asn.getString("name");
+                    String asnDomain = asn.getString("domain");
+                    String asnOrganization = asn.getString("organization");
+                    String asnCode = asn.getString("asn");
+                    String asnType = asn.getString("type");
+                    ASN = new ASN(asnName, asnDomain, asnOrganization, asnCode, asnType);
+                }
+
                 container = new IPContainer(ipInfo, Currency, location, Security, ASN, Timezone);
-                tv.setText(container.displayGeneral());
-            } catch (JSONException e) {
-                tv.setText(e.toString());
+                display.setText(container.displayGeneral());
+            } catch (Exception e) {
+                display.setText(e.toString());
                 e.printStackTrace();
             }
         }
     }
-
-
+//
+//
+//    public void onBack(View view) {
+//
+//    }
+//
+//    TextView display = findViewById(R.id.display);
+//
+//    public void onDisplayGeneral(View view) {
+//        display.setText(container.displayGeneral());
+//    }
+//
+//    public void onDisplayASN(View view) {
+//        display.setText(container.displayASN());
+//    }
+//
+//    public void onDisplayGeographics(View view) {
+//        display.setText(container.displayLocation());
+//    }
+//
+//    public void onDisplayAll(View view) {
+//        display.setText(container.displayAll());
+//    }
 }

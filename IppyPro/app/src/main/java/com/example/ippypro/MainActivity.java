@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 if (checkIPComponents(ipGroupNums)) {
                     String convertedBinaryIP = convertIPAddress(ipGroupNums);
                     String convertedHexIP = convertBinaryToHex(convertedBinaryIP);
-                    packageAddresses(ipAddress, convertedBinaryIP, convertedHexIP);
+                    String convertedOctalIP = convertBinaryToOctal(convertedBinaryIP);
+                    packageAddresses(ipAddress, convertedBinaryIP, convertedHexIP, convertedOctalIP);
                     clearIPAddress();
                 } else {
                     errMessage();
@@ -185,16 +186,41 @@ public class MainActivity extends AppCompatActivity {
                     hexStr.append(String.valueOf(hexDigit));
             }
         }
-//        System.out.println(binaryStr);
-        System.out.println(hexStr.toString());
         return hexStr.toString();
     }
-    public void packageAddresses(String ipAddress, String binaryValue, String hexValue) {
-        System.out.println(hexValue);
+    public String convertBinaryToOctal(String binaryStr) {
+        StringBuilder octStr = new StringBuilder();
+        binaryStr = 0 + binaryStr;
+        int octDigit;
+        int counter = 0;
+
+        for (int i = 0; i < 11; i++) {
+            octDigit = 0;
+            for (int j = 0; j < 3; j++) {
+                if (binaryStr.substring(counter, (counter + 1)).equals("1")) {
+                    if (j == 0) {
+                        octDigit = octDigit + 4;
+                    } else if (j == 1) {
+                        octDigit = octDigit + 2;
+                    } else {
+                        octDigit = octDigit + 1;
+                    }
+                    counter = counter + 1;
+                } else {
+                    counter = counter + 1;
+                    continue;
+                }
+            }
+            octStr.append(octDigit);
+        }
+        return octStr.toString();
+    }
+    public void packageAddresses(String ipAddress, String binaryValue, String hexValue, String octalValue) {
         ArrayList<String> ipPackage = new ArrayList<>();
         ipPackage.add(ipAddress);
         ipPackage.add(binaryValue);
         ipPackage.add(hexValue);
+        ipPackage.add(octalValue);
         sendIPAddress(ipPackage);
     }
     public void sendIPAddress(ArrayList<String> ipPackage) {
