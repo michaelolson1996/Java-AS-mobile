@@ -1,6 +1,8 @@
 package com.example.ippypro;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,7 @@ public class GetInfoActivity extends AppCompatActivity {
     Currency Currency;
     Timezone Timezone;
     Security Security;
-//    TextView display = findViewById(R.id.display);
+    String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +31,10 @@ public class GetInfoActivity extends AppCompatActivity {
         Bundle addresses = getIntent().getExtras();
         utilizeAddresses(addresses);
     }
+
     public void utilizeAddresses(Bundle addresses) {
         ArrayList<String> ipArr = addresses.getStringArrayList("addresses");
-        String ip = ipArr.get(0);
+        ip = ipArr.get(0);
         String binary = ipArr.get(1);
         String hex = ipArr.get(2);
         String octal = ipArr.get(3);
@@ -78,7 +81,6 @@ public class GetInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String message) {
             TextView display = findViewById(R.id.display);
-            System.out.println(message);
             try {
                 JSONObject jsonAddress = new JSONObject(message);
 
@@ -141,27 +143,36 @@ public class GetInfoActivity extends AppCompatActivity {
             }
         }
     }
-//
-//
-//    public void onBack(View view) {
-//
-//    }
-//
-//    TextView display = findViewById(R.id.display);
-//
-//    public void onDisplayGeneral(View view) {
-//        display.setText(container.displayGeneral());
-//    }
-//
-//    public void onDisplayASN(View view) {
-//        display.setText(container.displayASN());
-//    }
-//
-//    public void onDisplayGeographics(View view) {
-//        display.setText(container.displayLocation());
-//    }
-//
-//    public void onDisplayAll(View view) {
-//        display.setText(container.displayAll());
-//    }
+
+    public void onBack(View view) {
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(this, MainActivity.class);
+        bundle.putString("ip", ip);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void onSave() {
+        
+    }
+
+    public void onDisplayGeneral(View view) {
+        TextView display = findViewById(R.id.display);
+        display.setText(container.displayGeneral());
+    }
+
+    public void onDisplayASN(View view) {
+        TextView display = findViewById(R.id.display);
+        display.setText(container.displayASN());
+    }
+
+    public void onDisplayGeographics(View view) {
+        TextView display = findViewById(R.id.display);
+        display.setText(container.displayLocation());
+    }
+
+    public void onDisplayAll(View view) {
+        TextView display = findViewById(R.id.display);
+        display.setText(container.displayAll());
+    }
 }

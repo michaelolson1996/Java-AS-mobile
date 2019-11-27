@@ -17,6 +17,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            Bundle ip = getIntent().getExtras();
+            String ipStr = ip.getString("ip");
+            EditText tv = findViewById(R.id.getIP);
+            tv.setText(ipStr);
+        } catch(Exception e) {
+            System.out.println(e.toString());
+        }
         Button setipbtn = findViewById(R.id.setipbtn);
         Button aboutbtn = findViewById(R.id.aboutbtn);
         Button storagebtn = findViewById(R.id.storagebtn);
@@ -230,10 +238,14 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
     public void goStorage() {
-
+        Intent intent = new Intent(this, SaveActivity.class);
+        startActivity(intent);
     }
-    public void goAbout() {
 
+    public void goAbout() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
