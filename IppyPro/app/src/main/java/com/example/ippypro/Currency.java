@@ -1,6 +1,6 @@
 package com.example.ippypro;
 
-public class Currency {
+public class Currency implements java.io.Serializable {
     private String nativeName;
     private String code;
     private String name;

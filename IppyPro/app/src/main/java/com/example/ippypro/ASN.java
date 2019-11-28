@@ -1,6 +1,6 @@
 package com.example.ippypro;
 
-public class ASN {
+public class ASN implements java.io.Serializable {
     private String asnName;
     private String asnDomain;
     private String asnOrganization;

@@ -2,7 +2,7 @@ package com.example.ippypro;
 
 import java.util.Date;
 
-public class Timezone {
+public class Timezone implements java.io.Serializable {
     private String name;
     private String datetime;
     private String datetimelocal;

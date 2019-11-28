@@ -90,15 +90,21 @@ public class GetInfoActivity extends AppCompatActivity {
                 ipInfo.setIPAndTime(requesterIP, execTime);
 
 //                GEOGRAPHY
-                JSONObject geo = jsonAddress.getJSONObject("geo");
 
-                String countryName = geo.getString("country-name");
-                String capital = geo.optString("capital", "N/A");
-                String iso = geo.getString("country-iso-code");
-                String city = geo.getString("city");
-                double longitude = geo.getDouble("longitude");
-                double latitude = geo.getDouble("latitude");
-                location = new Location(countryName, capital, iso, city, longitude, latitude);
+                if (jsonAddress.isNull("geo")) {
+                    location = new Location("N/A", "N/A", "N/A", "N/A", 0.1d, 0.1d);
+                } else {
+                    JSONObject geo = jsonAddress.getJSONObject("geo");
+                    String countryName = geo.getString("country-name");
+                    String capital = geo.optString("capital", "N/A");
+                    String iso = geo.getString("country-iso-code");
+                    String city = geo.getString("city");
+                    double longitude = geo.getDouble("longitude");
+                    double latitude = geo.getDouble("latitude");
+                    location = new Location(countryName, capital, iso, city, longitude, latitude);
+                }
+
+
 
 //                 CURRENCY
                 JSONObject currency = jsonAddress.getJSONObject("currency");
@@ -153,7 +159,7 @@ public class GetInfoActivity extends AppCompatActivity {
     }
 
     public void onSave() {
-        
+
     }
 
     public void onDisplayGeneral(View view) {

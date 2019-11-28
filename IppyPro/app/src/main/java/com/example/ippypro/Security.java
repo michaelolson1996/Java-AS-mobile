@@ -1,6 +1,6 @@
 package com.example.ippypro;
 
-public class Security {
+public class Security implements java.io.Serializable {
     private boolean isCrawler;
     private boolean isProxy;
     private boolean isTor;

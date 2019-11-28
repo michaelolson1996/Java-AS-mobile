@@ -1,6 +1,6 @@
 package com.example.ippypro;
 
-public class IPContainer {
+public class IPContainer implements java.io.Serializable {
     IPInfo IPInfo;
     Currency Currency;
     Location Location;

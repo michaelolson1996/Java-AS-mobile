@@ -1,6 +1,6 @@
 package com.example.ippypro;
 
-public class IPInfo {
+public class IPInfo implements java.io.Serializable {
     private String ip;
     private String ipBinary;
     private String ipHex;

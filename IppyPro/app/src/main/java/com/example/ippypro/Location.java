@@ -1,6 +1,6 @@
 package com.example.ippypro;
 
-public class Location {
+public class Location implements java.io.Serializable {
     private String country;
     private String capital;
     private String iso;
