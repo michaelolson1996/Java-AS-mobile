@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     hexStr.append("F");
                     break;
                 default:
-                    hexStr.append(String.valueOf(hexDigit));
+                    hexStr.append(hexDigit);
             }
         }
         return hexStr.toString();
@@ -238,12 +238,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
     public void goStorage() {
         Intent intent = new Intent(this, SaveActivity.class);
         startActivity(intent);
     }
-
     public void goAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
