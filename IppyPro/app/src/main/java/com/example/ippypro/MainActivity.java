@@ -239,8 +239,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void goStorage() {
-        Intent intent = new Intent(this, SaveActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, SaveActivity.class);
+//        startActivity(intent);
+        TextView err = findViewById(R.id.errmessage);
+        err.setText("This feature will be available in the near future :)");
     }
     public void goAbout() {
         Intent intent = new Intent(this, AboutActivity.class);

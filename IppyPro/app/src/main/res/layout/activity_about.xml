@@ -7,12 +7,19 @@
     tools:context=".AboutActivity">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/aboutContent"
         android:layout_width="388dp"
         android:layout_height="477dp"
         android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:focusedByDefault="false"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:textColorLink="#094523"
+        android:textCursorDrawable="@android:color/black"
+        android:textIsSelectable="true"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +34,7 @@
         android:height="50dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="setAboutDisplay"
         android:text="1"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintEnd_toStartOf="@+id/button2"
@@ -42,6 +50,7 @@
         android:height="50dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="setAboutDisplay"
         android:text="2"
         app:layout_constraintBottom_toBottomOf="@+id/button4"
         app:layout_constraintEnd_toStartOf="@+id/button4"
@@ -59,13 +68,14 @@
         android:text="Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/aboutContent" />
 
     <TextView
         android:id="@+id/aboutTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        android:textCursorDrawable="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/aboutContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +88,7 @@
         android:height="50dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="setAboutDisplay"
         android:text="3"
         app:layout_constraintBottom_toBottomOf="@+id/button5"
         app:layout_constraintEnd_toStartOf="@+id/button5"
@@ -93,6 +104,7 @@
         android:height="50dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="setAboutDisplay"
         android:text="4"
         app:layout_constraintBottom_toBottomOf="@+id/button3"
         app:layout_constraintEnd_toStartOf="@+id/button3"

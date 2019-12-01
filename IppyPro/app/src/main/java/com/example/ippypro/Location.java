@@ -19,7 +19,7 @@ public class Location implements java.io.Serializable {
 
     public String getString() {
         String locationStr = "\nGeographics\n" + "Country: " + country + "\nCapital: " + capital + "\nISO: " + iso
-                + "\nCity: " + city + "\nLong: " + longitude + "\nLatitude: " + latitude;
+                + "\nCity: " + city + "\nLong: " + longitude + "\nLatitude: " + latitude + "\n";
         return locationStr;
     }
 }

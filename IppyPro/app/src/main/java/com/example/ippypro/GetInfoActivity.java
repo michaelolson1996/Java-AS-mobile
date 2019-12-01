@@ -104,22 +104,28 @@ public class GetInfoActivity extends AppCompatActivity {
                     location = new Location(countryName, capital, iso, city, longitude, latitude);
                 }
 
-
-
 //                 CURRENCY
-                JSONObject currency = jsonAddress.getJSONObject("currency");
-                String currencyNativeName = currency.getString("native-name");
-                String currencyCode = currency.getString("code");
-                String currencyName = currency.getString("name");
-                String currencySymbol = currency.getString("symbol");
-                Currency = new Currency(currencyNativeName, currencyCode, currencyName, currencySymbol);
+                if (jsonAddress.isNull("currency")) {
+                    Currency = new Currency("N/A", "N/A", "N/A", "N/A");
+                } else {
+                    JSONObject currency = jsonAddress.getJSONObject("currency");
+                    String currencyNativeName = currency.getString("native-name");
+                    String currencyCode = currency.getString("code");
+                    String currencyName = currency.getString("name");
+                    String currencySymbol = currency.getString("symbol");
+                    Currency = new Currency(currencyNativeName, currencyCode, currencyName, currencySymbol);
+                }
 
 //                  TIMEZONE
-                JSONObject timezone = jsonAddress.getJSONObject("timezone");
-                String timezoneName = timezone.getString("microsoft-name");
-                String dateTime = timezone.getString("date-time");
-                String ianaName = timezone.getString("iana-name");
-                Timezone = new Timezone(timezoneName, dateTime, ianaName);
+                if (jsonAddress.isNull("timezone")) {
+                    Timezone = new Timezone("N/A", "N/A", "N/A");
+                } else {
+                    JSONObject timezone = jsonAddress.getJSONObject("timezone");
+                    String timezoneName = timezone.getString("microsoft-name");
+                    String dateTime = timezone.getString("date-time");
+                    String ianaName = timezone.getString("iana-name");
+                    Timezone = new Timezone(timezoneName, dateTime, ianaName);
+                }
 
 //                  SECURITY
                 JSONObject security = jsonAddress.getJSONObject("security");
@@ -158,8 +164,9 @@ public class GetInfoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onSave() {
-
+    public void onSave(View view) {
+        TextView display = findViewById(R.id.display);
+        display.setText("This feature will be available in the near future :)");
     }
 
     public void onDisplayGeneral(View view) {
